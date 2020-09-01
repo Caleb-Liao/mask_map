@@ -35,6 +35,9 @@
 .content{
   width: 360px;
   height: 100%;
+  @media (max-width:768px) {
+    width: 300px;
+  }
 }
 
 .search{
@@ -53,6 +56,9 @@
     background: url("https://raw.githubusercontent.com/ourjs/static/gh-pages/2015/arrow.png") no-repeat center right 16px white;
     padding: 12px 16px;
     margin-bottom: 10px;
+    @media (max-width:768px) {
+      width: 100%;
+    }
   }
   p{
     margin-top: 5px;
@@ -93,6 +99,9 @@
       text-align: center;
       background: #668AFE;
       color: white;
+      @media (max-width:768px) {
+        width: 120px;
+      }
       &:nth-of-type(1){
         border-radius: 4px 0px 0px 4px;
         border-right: 1px solid #F6F6F6;
