@@ -1,38 +1,45 @@
 <template>
   <div id="app">
     <div class="sidebar">
-      <div class="search">
-        <form>
-          <select v-model="chosenCity">
-            <option value="請選擇縣市" selected>請選擇縣市</option>
-            <option v-for="(city,index) in cityList" :key="index" :value="city">{{city}}</option>
-          </select>
-          <select v-model="chosenArea" @change="getMaskApi">
-            <option value="請選擇地區" selected>請選擇地區</option>
-            <option v-for="(area,index) in areaList[0]" :key="index" :value="area">{{area}}</option>
-          </select>
-        </form>
-        <p>有取得口罩數量的藥局有<span>{{pharmacies.length}}</span>家</p>
-        <div class="locateImg" @click="getUserPosition">
-          <img src="./assets/icon/locate.png" alt="">
+      <div class="content" v-if="sidebarOpen">
+        <div class="search">
+          <form>
+            <select v-model="chosenCity">
+              <option value="請選擇縣市" selected>請選擇縣市</option>
+              <option v-for="(city,index) in cityList" :key="index" :value="city">{{city}}</option>
+            </select>
+            <select v-model="chosenArea" @change="getMaskApi">
+              <option value="請選擇地區" selected>請選擇地區</option>
+              <option v-for="(area,index) in areaList[0]" :key="index" :value="area">{{area}}</option>
+            </select>
+          </form>
+          <p>有取得口罩數量的藥局有<span>{{pharmacies.length}}</span>家</p>
+          <div class="locateImg" @click="getUserPosition">
+            <img src="./assets/icon/locate.png" alt="">
+          </div>
         </div>
+
+        <ul class="result">
+          <li v-for="pharmacy in pharmacies" :key="pharmacy.properties.id" @click="penTo(pharmacy.geometry.coordinates[1] , pharmacy.geometry.coordinates[0], pharmacy)">
+            <h5>{{pharmacy.properties.name}}</h5>
+            <p><img src="./assets/icon/map-marker.svg" alt="">{{pharmacy.properties.address}}</p>
+            <p><img src="./assets/icon/phone.svg" alt="">{{pharmacy.properties.phone}}</p>
+            <div :class="{ 'noMask' : !pharmacy.properties.mask_adult }">成人：
+              <span v-if="pharmacy.properties.mask_adult">{{pharmacy.properties.mask_adult}}</span>
+              <span v-else>已售完</span>
+            </div>
+            <div :class="{ 'noMask' : !pharmacy.properties.mask_child }">兒童：
+              <span v-if="pharmacy.properties.mask_child">{{pharmacy.properties.mask_child}}</span>
+              <span v-else>已售完</span>
+            </div>
+          </li>
+        </ul>
       </div>
 
-      <ul class="result">
-        <li v-for="pharmacy in pharmacies" :key="pharmacy.properties.id" @click="penTo(pharmacy.geometry.coordinates[1] , pharmacy.geometry.coordinates[0], pharmacy)">
-          <h5>{{pharmacy.properties.name}}</h5>
-          <p><img src="./assets/icon/map-marker.svg" alt="">{{pharmacy.properties.address}}</p>
-          <p><img src="./assets/icon/phone.svg" alt="">{{pharmacy.properties.phone}}</p>
-          <div :class="{ 'noMask' : !pharmacy.properties.mask_adult }">成人：
-            <span v-if="pharmacy.properties.mask_adult">{{pharmacy.properties.mask_adult}}</span>
-            <span v-else>已售完</span>
-          </div>
-          <div :class="{ 'noMask' : !pharmacy.properties.mask_child }">兒童：
-            <span v-if="pharmacy.properties.mask_child">{{pharmacy.properties.mask_child}}</span>
-            <span v-else>已售完</span>
-          </div>
-        </li>
-      </ul>
+      <button @click="sidebarOpen = !sidebarOpen">
+        <i class="fas fa-chevron-left" v-if="sidebarOpen"></i>
+        <i class="fas fa-chevron-right" v-if="!sidebarOpen"></i>
+        </button>
     </div>
 
     <div id="map">
@@ -55,6 +62,7 @@ export default {
   name: 'App',
   data () {
     return {
+      sidebarOpen: true,
       chosenCity: '請選擇縣市',
       chosenArea: '請選擇地區',
       pharmacies: [],
