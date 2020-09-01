@@ -57,7 +57,8 @@ export default {
     return {
       chosenCity: '請選擇縣市',
       chosenArea: '請選擇地區',
-      pharmacies: []
+      pharmacies: [],
+      userPosition: []
     }
   },
 
@@ -100,6 +101,8 @@ export default {
           item.properties.county === this.chosenCity && item.properties.town === this.chosenArea
         )
         this.renderMap()
+        // 飛到第一個藥局的位置
+        mymap.panTo([this.pharmacies[0].geometry.coordinates[1], this.pharmacies[0].geometry.coordinates[0]], { animate: true, duration: 1 })
       })
     },
 
@@ -110,11 +113,7 @@ export default {
           mymap.removeLayer(layer)
         }
       })
-
-      // 飛到第一個藥局的位置
-      mymap.panTo([this.pharmacies[0].geometry.coordinates[1], this.pharmacies[0].geometry.coordinates[0]], { animate: true, duration: 1 })
-
-      // 插位置icon，並替換樣式
+      // 插位置marker，並替換樣式
       this.pharmacies.forEach(pharmacy => {
         const { properties, geometry } = pharmacy
 
@@ -164,22 +163,39 @@ export default {
         navigator.geolocation.getCurrentPosition(showPosition)
       } else { alert('無法取得您的定位') }
 
-      function showPosition (position) {
-        const redIcon = new L.Icon({
-          iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png'
-        })
+      const vm = this
 
+      function showPosition (position) {
+        vm.userPosition = [position.coords.latitude, position.coords.longitude]
         mymap.panTo([position.coords.latitude, position.coords.longitude], { animate: true, duration: 1 })
 
-        const userMarker = L.marker([
-          position.coords.latitude,
-          position.coords.longitude
-        ], { icon: redIcon }).addTo(mymap).bindPopup('<strong>您的位置</strong>')
+        // 取得並計算定位附近的藥局，並渲染在地圖上
+        vm.pharmacies = []
+        const api = 'https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json'
+        vm.axios.get(api).then(response => {
+          vm.pharmacies = response.data.features.filter(item =>
+            Math.pow((item.geometry.coordinates[1] - vm.userPosition[0]), 2) + Math.pow((item.geometry.coordinates[0] - vm.userPosition[1]), 2) < 0.0001
+          )
+          vm.renderMap()
 
-        setTimeout(() => {
-        // 晚一點再開，跟移動的動畫同步，看起來也比較順
-          userMarker.openPopup()
-        }, 1000)
+          vm.chosenCity = '請選擇縣市'
+          vm.chosenArea = '請選擇地區'
+
+          // 插上自己定位的marker
+          const redIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png'
+          })
+
+          const userMarker = L.marker([
+            position.coords.latitude,
+            position.coords.longitude
+          ], { icon: redIcon }).addTo(mymap).bindPopup('<strong>您的位置</strong>')
+
+          setTimeout(() => {
+          // 晚一點再開，跟移動的動畫同步，看起來也比較順
+            userMarker.openPopup()
+          }, 1000)
+        })
       }
     }
   }
