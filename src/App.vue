@@ -14,9 +14,6 @@
             </select>
           </form>
           <p>有取得口罩數量的藥局有<span>{{pharmacies.length}}</span>家</p>
-          <div class="locateImg" @click="getUserPosition">
-            <img src="./assets/icon/locate.png" alt="">
-          </div>
         </div>
 
         <ul class="result">
@@ -43,6 +40,9 @@
     </div>
 
     <div id="map">
+      <div class="locateImg" @click="getUserPosition">
+        <i class="fas fa-crosshairs"></i>
+      </div>
     </div>
   </div>
 </template>
