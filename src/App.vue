@@ -135,10 +135,10 @@ export default {
           <a href="https://www.google.com.tw/maps/place/${properties.address}" target="_blank">${properties.address}</a>
           </p>
           <p><img src=${phoneIcon} alt="">${properties.phone}</p>
-          <div>成人：
+          <div ${properties.mask_adult > 0 ? '' : 'class="noMask"'}>成人：
             <span>${properties.mask_adult > 0 ? properties.mask_adult : '已售完'}</span>
           </div>
-          <div>兒童：
+          <div ${properties.mask_child > 0 ? '' : 'class="noMask"'}>兒童：
             <span>${properties.mask_child > 0 ? properties.mask_child : '已售完'}</span>
           </div>`
         )
@@ -153,10 +153,10 @@ export default {
           <a href="https://www.google.com.tw/maps/place/${item.properties.address}" target="_blank">${item.properties.address}</a>
           </p>
         <p><img src=${phoneIcon} alt="">${item.properties.phone}</p>
-        <div>成人：
+        <div ${item.properties.mask_adult > 0 ? '' : 'class="noMask"'}>成人：
           <span>${item.properties.mask_adult > 0 ? item.properties.mask_adult : '已售完'}</span>
         </div>
-        <div>兒童：
+        <div ${item.properties.mask_child > 0 ? '' : 'class="noMask"'}>兒童：
           <span>${item.properties.mask_child > 0 ? item.properties.mask_child : '已售完'}</span>
         </div>`
       )
