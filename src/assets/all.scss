@@ -1,0 +1,152 @@
+*{
+  box-sizing: border-box;
+}
+
+#app {
+  font-family: 'Noto Sans TC', sans-serif;
+  height: 100vh;
+  line-height: 1.5;
+  display: flex;
+}
+
+.sidebar{
+  width: 360px;
+  height: 100%;
+  box-shadow: 0px 0px 40px #10203033;
+}
+
+.search{
+  background-color: #F6F6F6;
+  padding: 32px 24px 16px 24px;
+  position: relative;
+  select{
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 16px;
+    width: 312px;
+    height: 48px;
+    border: 1px solid #E2E2E2;
+    border-radius: 4px;
+    appearance:none;
+    outline: none;
+    background: url("https://raw.githubusercontent.com/ourjs/static/gh-pages/2015/arrow.png") no-repeat center right 16px white;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+  }
+  p{
+    margin-top: 5px;
+  }
+  span{
+    font-size: 24px;
+    color: #668AFE;
+    margin: 0 5px;
+  }
+
+  .locateImg{
+    cursor: pointer;
+    position: absolute;
+    bottom: 15px;
+    right: 40px;
+    img{
+      width: 25px;
+    }
+  }
+}
+
+.result{
+  background-color: white;
+  height: calc(100% - 205px);
+  overflow-y: scroll;
+  li{
+    cursor: pointer;
+    padding: 24px;
+    border: 1px solid #E2E2E2;
+    h5{
+      color: #333333;
+      font-size: 18px;
+      font-weight: 500;
+    }
+    p{
+      color: #888888;
+      margin: 10px 0;
+    }
+    img{
+      margin-right: 8px;
+    }
+    div{
+      display: inline-block;
+      width: 146px;
+      height: 44px;
+      font-size: 14px;
+      padding: 12px 0;
+      text-align: center;
+      background: #668AFE;
+      color: white;
+      &:nth-of-type(1){
+        border-radius: 4px 0px 0px 4px;
+        border-right: 1px solid #F6F6F6;
+      }
+      &:nth-of-type(2){
+        border-radius: 0px 4px 4px 0px;
+      }
+    }
+    .noMask{
+      background: #E2E2E2;
+      color: #9C9C9C;
+    }
+  }
+}
+
+#map{
+  width: calc(100% - 360px);
+  height: 100%;
+
+  .leaflet-popup-content-wrapper,.leaflet-popup-tip-container{
+    transform: translateX(14px);
+    box-shadow: 0px 4px 16px #668AFE33;
+  }
+  .leaflet-popup-close-button{
+    display: none;
+  }
+  .leaflet-popup-content{
+    font-family: 'Noto Sans TC', sans-serif;
+    h5{
+      color: #333333;
+      font-size: 18px;
+      font-weight: 500;
+      margin-top: 20px;
+    }
+    p{
+      color: #888888;
+      font-size: 16px;
+    }
+    img{
+      margin-right: 8px;
+    }
+    a{
+      color: #40a8c4;
+    }
+    div{
+      display: inline-block;
+      width: 146px;
+      height: 44px;
+      font-size: 14px;
+      padding: 12px 0;
+      margin-bottom: 10px;
+      text-align: center;
+      &:nth-of-type(1){
+        border-radius: 4px 0px 0px 4px;
+        background: #E2E2E2;
+        color: #9C9C9C;
+      }
+      &:nth-of-type(2){
+        border-radius: 0px 4px 4px 0px;
+        background: #668AFE;
+        color: white;
+      }
+    }
+    strong{
+      font-size: 18px;
+      font-weight: 600;
+    }
+  }
+}

@@ -1,24 +1,3 @@
-# mask_map
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+口罩地圖 ： [Demo連結](https://caleb-liao.github.io/mask_map/dist/)  
+  
+設計圖來源：https://challenge.thef2e.com/user/3?schedule=4427#works-4427 by 建良 設計師
