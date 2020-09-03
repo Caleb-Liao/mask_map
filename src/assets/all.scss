@@ -7,19 +7,28 @@
   height: 100vh;
   line-height: 1.5;
   display: flex;
+  position: relative;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: all .5s;
+}
+.fade-enter, .fade-leave-to{
+  opacity: 0;
+  transform: translateX(-100px);
 }
 
 .sidebar{
   height: 100%;
   box-shadow: 0px 0px 40px #10203033;
-  position: relative;
+  position: absolute;
+  z-index: 1;
   button{
     width: 18px;
     height: 48px;
     position: absolute;
     top: 50%;
     right: -18px;
-    z-index: 1;
     background: #668AFE;
     border-radius: 0px 12px 12px 0px;
     border: none;
