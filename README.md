@@ -1,25 +1,30 @@
-# 口罩地圖
+# Mask map
 
 ## Demo
 
 - https://caleb-liao.github.io/mask_map/dist/
 
-## 簡介
+## Project overviw
 
-- 可依據自身定位，並顯示附近的藥局
-- 透過上方的地區篩選，搜尋該區域的藥局
-- 藥局資訊及成人、兒童、罩數量標示清楚，並可透過地址連結到google map
-- 支援RWD方便手機使用者查詢
+In response to the global outbreak of severe infectious pneumonia since 2020 and the shortage of masks in Taiwan, the government has implemented a name-based mask distribution system. The system requires people to buy masks from pharmacies by their real name registered. Thus, I created this mask map for the public to check the number of masks left in each pharmacy.
 
-## 使用技術
+## Introduction
 
-- vue
-- Vue CLI 4
+- Can be positioned according to the user’s location and display nearby pharmacies 
+- Search for nearby pharmacies by using the area filter above
+- Pharmacy information and the number of masks for adults and children are clearly stated and can be linked to Google Map through the address
+- Support RWD that allows mobile phone users to use it easily
+
+## Skills
+
+- HTML5
+- CSS3
+- Vue.js 
+- Vue CLI
 - Leaflet + OpenStreetMap
+- RESTful APIs 
 - RWD
-- ESLint (standard)
-- SCSS  
   
-## 設計圖來源
+## Design
 
-- https://challenge.thef2e.com/user/3?schedule=4427#works-4427 by 建良 設計師
+- https://challenge.thef2e.com/user/3?schedule=4427#works-4427 by Chien-liang
